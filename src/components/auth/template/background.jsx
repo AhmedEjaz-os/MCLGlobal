@@ -21,10 +21,10 @@ function BackgroundTemplate() {
       <div
         className="left"
         style={{
-          maxWidth: "344px",
           width: "100%",
           zIndex: 2,
           marginBottom: "20px",
+          maxWidth: "50%",
           color: "#ffffff",
         }}
       >
@@ -45,80 +45,39 @@ function BackgroundTemplate() {
         </Typography>
       </div>
 
-      {/* Right Content Section with Layered Login Form */}
       <div
         className="right"
         style={{
           width: "100%",
-          zIndex: 1,
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          flexDirection: "column",
-          position: "relative",
           height: "100%",
+          maxWidth: "50%",
         }}
       >
-        {/* Background Layers */}
-        <div
-          className="squares"
-          style={{
-            backgroundColor: "rgba(255, 255, 255, .06)",
-            minWidth: "630px",
-            display: "block",
-            position: "absolute",
-            top: "6%",
-            left: "-90px",
-            minHeight: "676px",
-            borderRadius: "30px",
-            width: "fit-content",
-          }}
-        ></div>
-        <div
-          className="squares"
-          style={{
-            backgroundColor: "rgba(255, 255, 255, .12)",
-            minWidth: "630px",
-            display: "block",
-            position: "absolute",
-            top: "3%",
-            left: "-60px",
-            minHeight: "770px",
-            borderRadius: "30px",
-            width: "fit-content",
-          }}
-        ></div>
-        <div
-          className="squares"
-          style={{
-            backgroundColor: "rgba(255, 255, 255, .37)",
-            minWidth: "630px",
-            display: "block",
-            position: "absolute",
-            top: "0%",
-            left: "-35px",
-            minHeight: "850px",
-            borderRadius: "30px",
-            width: "fit-content",
-          }}
-        ></div>
-
-        {/* Main Login Form Container */}
         <div
           className="login-container"
           style={{
-            backgroundColor: "rgba(255, 255, 255, 1)",
             minWidth: "630px",
-            display: "block",
-            position: "relative",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "column",
             borderRadius: "30px",
             width: "fit-content",
-            padding: "60px 80px",
-            boxShadow: "0 10px 30px rgba(0, 0, 0, 0.1)",
+            backgroundImage: "url(/images/layers.png)",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "contain",
+            backgroundPosition: "left",
+            minHeight: "920px",
           }}
         >
           {/* Form Header */}
-          <div style={{ textAlign: "center", marginBottom: "40px" }}>
+          <div
+            style={{
+              textAlign: "center",
+              marginBottom: "40px",
+              padding: "60px 80px 0px",
+            }}
+          >
             <Typography variant="h4" sx={{ fontWeight: 700, color: "#333" }}>
               Agent Sign In
             </Typography>
@@ -134,6 +93,8 @@ function BackgroundTemplate() {
               flexDirection: "column",
               justifyContent: "flex-start",
               alignItems: "center",
+              padding: "0px 80px 0px",
+              marginLeft: "48px",
             }}
             onSubmit={(e) => e.preventDefault()}
           >
@@ -229,49 +190,6 @@ function BackgroundTemplate() {
               creation
             </Typography>
           </form>
-
-          {/* Wavy Bottom Effect */}
-          <div
-            style={{
-              position: "absolute",
-              bottom: 0,
-              left: 0,
-              width: "100%",
-              height: "60px",
-              overflow: "hidden",
-            }}
-          >
-            <div
-              style={{
-                position: "absolute",
-                bottom: 0,
-                width: "100%",
-                height: "100px",
-                backgroundColor: "rgba(255, 255, 255, 0.06)",
-                clipPath: "polygon(0% 70%, 100% 60%, 100% 100%, 0% 100%)",
-              }}
-            ></div>
-            <div
-              style={{
-                position: "absolute",
-                bottom: 0,
-                width: "100%",
-                height: "100px",
-                backgroundColor: "rgba(255, 255, 255, 0.12)",
-                clipPath: "polygon(0% 60%, 100% 50%, 100% 100%, 0% 100%)",
-              }}
-            ></div>
-            <div
-              style={{
-                position: "absolute",
-                bottom: 0,
-                width: "100%",
-                height: "100px",
-                backgroundColor: "rgba(255, 255, 255, 0.37)",
-                clipPath: "polygon(0% 50%, 100% 40%, 100% 100%, 0% 100%)",
-              }}
-            ></div>
-          </div>
         </div>
       </div>
     </div>
