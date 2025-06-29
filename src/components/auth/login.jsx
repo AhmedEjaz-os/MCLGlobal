@@ -2,19 +2,36 @@ import React from "react";
 import BackgroundTemplate from "./template/background";
 import {
   Button,
-  TextField,
   Typography,
   Box,
   InputLabel,
   OutlinedInput,
-  FormControl,
   InputAdornment,
   IconButton,
+  FormHelperText,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import CustomSnackBar from "../helpers/snackbar";
+import CustomFormFields from "../helpers/customFormFeilds";
 
 function LoginPage() {
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [errors, setErrors] = React.useState({
+    email: false,
+    password: false,
+  });
+
+  const [errorMessage, setErrorMessage] = React.useState({
+    email: "",
+    password: "",
+  });
+
+  const [openSnackbar, setOpenSnackbar] = React.useState(false);
+  const [snackbarMessage, setSnackbarMessage] = React.useState(false);
+
   const [showPassword, setShowPassword] = React.useState(false);
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -25,6 +42,61 @@ function LoginPage() {
   const handleMouseUpPassword = (event) => {
     event.preventDefault();
   };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (email && email.length > 0) {
+      setErrors((prev) => ({ ...prev, email: false }));
+      setErrorMessage({
+        ...errorMessage,
+        email: "",
+      });
+      if (emailRegex.test(email)) {
+        setErrors((prev) => ({ ...prev, email: false }));
+        setErrorMessage({
+          ...errorMessage,
+          email: "",
+        });
+        if (password && password.length > 0) {
+          setErrors((prev) => ({ ...prev, password: false }));
+          setErrorMessage({
+            ...errorMessage,
+            password: "",
+          });
+
+          const payload = {
+            email: email,
+            password: password,
+          };
+
+          console.log("Login successful with email:", payload);
+          setSnackbarMessage("Login successful");
+          setOpenSnackbar(true);
+          setEmail("");
+          setPassword("");
+        } else {
+          setErrors((prev) => ({ ...prev, password: true }));
+          setErrorMessage({
+            ...errorMessage,
+            password: "Password is required",
+          });
+        }
+      } else {
+        setErrors((prev) => ({ ...prev, email: true }));
+        setErrorMessage({
+          ...errorMessage,
+          email: "Please enter a valid email address",
+        });
+      }
+    } else {
+      setErrors((prev) => ({ ...prev, email: true }));
+      setErrorMessage({
+        ...errorMessage,
+        email: "Email is required",
+      });
+    }
+  };
+
   return (
     <>
       <BackgroundTemplate>
@@ -32,7 +104,10 @@ function LoginPage() {
         <div
           className="login-container"
           style={{
-            minWidth: "630px",
+            minWidth: {
+              xl: "532px",
+              xxl: "630px",
+            },
             display: "flex",
             justifyContent: "center",
             alignItems: "start",
@@ -43,16 +118,22 @@ function LoginPage() {
             backgroundRepeat: "no-repeat",
             backgroundSize: "contain",
             backgroundPosition: "left",
-            minHeight: "920px",
+            minHeight: "100%",
           }}
         >
           {/* Form Header */}
-          <div
-            style={{
+          <Box
+            sx={{
               textAlign: "start",
               marginBottom: "40px",
-              padding: "60px 80px 0px",
-              marginLeft: "80px",
+              padding: {
+                md: "60px 28px 0px",
+                xl: "60px 80px 0px",
+              },
+              marginLeft: {
+                md: "60px",
+                xl: "80px",
+              },
             }}
           >
             <Typography
@@ -71,64 +152,40 @@ function LoginPage() {
             <Typography variant="body1" sx={{ color: "#666", mt: 1 }}>
               Access your MCL Global agent portal
             </Typography>
-          </div>
-          <form
-            style={{
+          </Box>
+          <Box
+            component="form"
+            sx={{
               display: "flex",
               flexDirection: "column",
               justifyContent: "flex-start",
               alignItems: "center",
-              padding: "0px 80px 0px",
-              marginLeft: "80px",
+              padding: {
+                md: "0px 28px 0px",
+                xl: "0px 80px 0px",
+              },
+              marginLeft: {
+                md: "60px",
+                xl: "80px",
+              },
             }}
-            onSubmit={(e) => e.preventDefault()}
+            onSubmit={handleSubmit}
           >
-            <InputLabel
-              required
-              style={{
-                alignSelf: "flex-start",
-                fontSize: "14px",
-                fontWeight: 500,
-                marginBottom: "10px",
-              }}
-            >
-              Email
-            </InputLabel>
-            <OutlinedInput
-              fullWidth
-              variant="outlined"
-              placeholder="Enter your email"
-              sx={{
-                borderRadius: "12px",
-                backgroundColor: "#f8f9fa",
-                mb: 3,
-                fontSize: "14px",
-              }}
+            <CustomFormFields
+              label={"Email"}
+              value={email}
+              setValue={setEmail}
+              errors={errors.email}
+              errorMessage={errorMessage.email}
+              type={"email"}
             />
-
-            {/* Password Field */}
-            <InputLabel
-              required
-              style={{
-                alignSelf: "flex-start",
-                fontSize: "14px",
-                fontWeight: 500,
-                marginBottom: "10px",
-              }}
-            >
-              Password
-            </InputLabel>
-            <OutlinedInput
-              fullWidth
+            <CustomFormFields
+              label={"Password"}
+              value={password}
+              setValue={setPassword}
+              errors={errors.password}
+              errorMessage={errorMessage.password}
               type={showPassword ? "text" : "password"}
-              variant="outlined"
-              placeholder="Enter your password"
-              sx={{
-                borderRadius: "12px",
-                backgroundColor: "#f8f9fa",
-                mb: 3,
-                fontSize: "14px",
-              }}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
@@ -171,6 +228,7 @@ function LoginPage() {
             <Button
               fullWidth
               variant="contained"
+              type="submit"
               sx={{
                 py: 1.5,
                 mb: 3,
@@ -197,9 +255,14 @@ function LoginPage() {
             >
               New to MCL Global? Contact admin for account creation
             </Typography>
-          </form>
+          </Box>
         </div>
       </BackgroundTemplate>
+      <CustomSnackBar
+        openSnackbar={openSnackbar}
+        setOpenSnackbar={setOpenSnackbar}
+        snackbarMessage={snackbarMessage}
+      />
     </>
   );
 }

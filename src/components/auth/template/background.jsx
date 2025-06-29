@@ -1,30 +1,42 @@
-import { Typography } from "@mui/material";
+import { Box, Divider, Typography } from "@mui/material";
 
 function BackgroundTemplate({ ...rest }) {
   const { children } = rest;
   return (
-    <div
-      style={{
+    <Box
+      sx={{
         backgroundImage: `url('/images/background.png')`,
         backgroundAttachment: "fixed",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
-        backgroundSize: "cover",
-        height: "100vh",
+        backgroundSize: {
+          md: "cover",
+          xl: "cover",
+        },
+        height: "100%",
         display: "flex",
-        justifyContent: "flex-start",
+        justifyContent: {
+          md: "space-between",
+          xl: "flex-start",
+        },
         alignItems: "center",
-        padding: "52px 75px 52px 155px",
+        padding: {
+          md: "52px 25px 52px 25px", // Adjust padding on large screens and larger
+          xxl: "52px 75px 52px 155px",
+        },
       }}
     >
       {/* Left Content Section */}
-      <div
+      <Box
         className="left"
-        style={{
+        sx={{
           width: "100%",
           zIndex: 2,
           marginBottom: "20px",
-          maxWidth: "50%",
+          maxWidth: {
+            md: "30%",
+            xl: "50%",
+          },
           color: "#ffffff",
         }}
       >
@@ -37,12 +49,19 @@ function BackgroundTemplate({ ...rest }) {
           variant="h4"
           sx={{
             fontWeight: 600,
-            fontSize: "36px",
+            maxWidth: {
+              xl: "270px",
+            },
+
+            fontSize: {
+              md: "30px",
+              xl: "36px",
+            },
             lineHeight: "46px",
             mb: "16px",
           }}
         >
-          Welcome back <br /> to MCL Global
+          Welcome back to MCL Global
         </Typography>
         <Typography
           variant="body1"
@@ -50,24 +69,31 @@ function BackgroundTemplate({ ...rest }) {
             fontSize: "14px",
             fontWeight: 400,
             lineHeight: "24px",
+            whiteSpace: "pre-line",
+            maxWidth: {
+              xl: "352px",
+            },
           }}
         >
-          Empowering agents to manage leads, access <br /> insights, and stay
-          connected. Sign in to continue <br /> delivering excellence.
+          Empowering agents to manage leads, access insights, and stay
+          connected. Sign in to continue delivering excellence.
         </Typography>
-      </div>
+      </Box>
 
-      <div
+      <Box
         className="right"
-        style={{
-          width: "100%",
+        sx={{
+          width: "fit-content",
           height: "100%",
-          maxWidth: "50%",
+          maxWidth: {
+            md: "70%",
+            xl: "50%",
+          },
         }}
       >
         {children}
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 }
 
