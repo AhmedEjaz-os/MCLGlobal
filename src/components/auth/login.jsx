@@ -4,11 +4,8 @@ import {
   Button,
   Typography,
   Box,
-  InputLabel,
-  OutlinedInput,
   InputAdornment,
   IconButton,
-  FormHelperText,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import CustomSnackBar from "../helpers/snackbar";
@@ -178,6 +175,7 @@ function LoginPage() {
               errors={errors.email}
               errorMessage={errorMessage.email}
               type={"email"}
+              required={true}
             />
             <CustomFormFields
               label={"Password"}
@@ -186,6 +184,7 @@ function LoginPage() {
               errors={errors.password}
               errorMessage={errorMessage.password}
               type={showPassword ? "text" : "password"}
+              required={true}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
