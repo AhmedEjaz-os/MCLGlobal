@@ -33,6 +33,10 @@ function BackgroundTemplate({ ...rest }) {
           width: "100%",
           zIndex: 2,
           marginBottom: "20px",
+          display: {
+            xs: "none",
+            md: "block",
+          },
           maxWidth: {
             md: "30%",
             xl: "50%",
@@ -83,9 +87,20 @@ function BackgroundTemplate({ ...rest }) {
       <Box
         className="right"
         sx={{
-          width: "fit-content",
+          width: {
+            xs: "100%",
+            md: "fit-content",
+          },
           height: "100%",
+          display: {
+            xs: "flex",
+            md: "block",
+          },
+          justifyContent: "center",
+          alignItems: "center",
+          flexDirection: "column",
           maxWidth: {
+            xs: "100%",
             md: "70%",
             xl: "50%",
           },

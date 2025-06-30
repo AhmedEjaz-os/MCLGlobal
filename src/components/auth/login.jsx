@@ -7,9 +7,14 @@ import {
   InputAdornment,
   IconButton,
 } from "@mui/material";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
+import {
+  CatchingPokemonSharp,
+  Visibility,
+  VisibilityOff,
+} from "@mui/icons-material";
 import CustomSnackBar from "../helpers/snackbar";
 import CustomFormFields from "../helpers/customFormFeilds";
+import { login } from "../helpers/API/auth.api";
 
 function LoginPage() {
   const [email, setEmail] = React.useState("");
@@ -26,6 +31,7 @@ function LoginPage() {
 
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
   const [snackbarMessage, setSnackbarMessage] = React.useState(false);
+  const [snackbarError, setSnackbarError] = React.useState(false);
 
   const [showPassword, setShowPassword] = React.useState(false);
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -40,7 +46,7 @@ function LoginPage() {
     event.preventDefault();
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if (email && email.length > 0) {
       setErrors((prev) => ({ ...prev, email: false }));
@@ -66,11 +72,27 @@ function LoginPage() {
             password: password,
           };
 
-          console.log("Login successful with email:", payload);
-          setSnackbarMessage("Login successful");
-          setOpenSnackbar(true);
-          setEmail("");
-          setPassword("");
+          const response = await login(payload);
+          if (response && response?.error) {
+            if (response?.message?.status) {
+              setSnackbarMessage(response?.message?.response?.data?.message);
+            } else {
+              setSnackbarMessage(response?.message?.message);
+            }
+            setOpenSnackbar(true);
+            setSnackbarError(false);
+          } else {
+            localStorage.setItem("token", response?.data?.details?.token);
+            localStorage.setItem(
+              "user",
+              JSON.stringify(response?.data?.details?.user)
+            );
+            setSnackbarError(true);
+            setSnackbarMessage("Login successful");
+            setOpenSnackbar(true);
+            setEmail("");
+            setPassword("");
+          }
         } else {
           setErrors((prev) => ({ ...prev, password: true }));
           setErrorMessage({
@@ -98,10 +120,11 @@ function LoginPage() {
     <>
       <BackgroundTemplate>
         {/* Login Form */}
-        <div
+        <Box
           className="login-container"
-          style={{
+          sx={{
             minWidth: {
+              xs: "fit-content",
               xl: "532px",
               xxl: "630px",
             },
@@ -110,33 +133,59 @@ function LoginPage() {
             alignItems: "start",
             flexDirection: "column",
             borderRadius: "30px",
-            width: "fit-content",
-            backgroundImage: "url(/images/layers.png)",
+            padding: {
+              xs: "28px 0px",
+              md: "unset",
+            },
+            width: {
+              xs: "fit-content",
+              md: "fit-content",
+            },
+            backgroundImage: {
+              md: "url(/images/layers.png)",
+            },
+            backgroundColor: {
+              xs: "white",
+              md: "unset",
+            },
             backgroundRepeat: "no-repeat",
             backgroundSize: "contain",
             backgroundPosition: "left",
-            minHeight: "100%",
+            minHeight: {
+              md: "100%",
+            },
           }}
         >
           {/* Form Header */}
           <Box
             sx={{
               textAlign: "start",
-              marginBottom: "40px",
+              marginBottom: {
+                xs: "10px",
+                md: "40px",
+              },
               padding: {
                 md: "60px 28px 0px",
                 xl: "60px 80px 0px",
               },
               marginLeft: {
+                xs: "20px",
                 md: "60px",
                 xl: "80px",
+              },
+              marginRight: {
+                xs: "20px",
+                md: "unset",
               },
             }}
           >
             <Typography
               variant="h4"
               sx={{
-                fontSize: "24px",
+                fontSize: {
+                  xs: "16px",
+                  md: "24px",
+                },
                 fontWeight: 700,
                 color: "#333",
                 fontFamily: "inter",
@@ -146,7 +195,17 @@ function LoginPage() {
             >
               Agent Sign In
             </Typography>
-            <Typography variant="body1" sx={{ color: "#666", mt: 1 }}>
+            <Typography
+              variant="body1"
+              sx={{
+                fontSize: {
+                  xs: "12px",
+                  md: "16px",
+                },
+                color: "#666",
+                mt: 1,
+              }}
+            >
               Access your MCL Global agent portal
             </Typography>
           </Box>
@@ -162,8 +221,13 @@ function LoginPage() {
                 xl: "0px 80px 0px",
               },
               marginLeft: {
+                xs: "20px",
                 md: "60px",
                 xl: "80px",
+              },
+              marginRight: {
+                xs: "20px",
+                md: "unset",
               },
             }}
             onSubmit={handleSubmit}
@@ -205,10 +269,22 @@ function LoginPage() {
             />
 
             {/* Forgot Password Link */}
-            <Box sx={{ alignSelf: "flex-start", mb: 3 }}>
+            <Box
+              sx={{
+                alignSelf: "flex-start",
+                mb: {
+                  xs: 1,
+                  md: 3,
+                },
+              }}
+            >
               <Button
                 variant="text"
                 sx={{
+                  fontSize: {
+                    xs: "12px",
+                    md: "16px",
+                  },
                   textTransform: "none",
                   fontWeight: 600,
                   color: "#2563eb",
@@ -229,11 +305,20 @@ function LoginPage() {
               variant="contained"
               type="submit"
               sx={{
-                py: 1.5,
-                mb: 3,
+                padding: {
+                  xs: "6px 8px",
+                  md: "6px 16px",
+                },
+                mb: {
+                  xs: 1,
+                  md: 3,
+                },
                 borderRadius: "12px",
                 fontWeight: 700,
-                fontSize: "1rem",
+                fontSize: {
+                  xs: "12px",
+                  md: "1rem",
+                },
                 backgroundColor: "#2563eb",
                 textTransform: "capitalize",
                 "&:hover": {
@@ -250,17 +335,25 @@ function LoginPage() {
             {/* Sign Up Prompt */}
             <Typography
               variant="body2"
-              sx={{ color: "#666", textAlign: "center" }}
+              sx={{
+                fontSize: {
+                  xs: "10px",
+                  md: "16px",
+                },
+                color: "#666",
+                textAlign: "center",
+              }}
             >
               New to MCL Global? Contact admin for account creation
             </Typography>
           </Box>
-        </div>
+        </Box>
       </BackgroundTemplate>
       <CustomSnackBar
         openSnackbar={openSnackbar}
         setOpenSnackbar={setOpenSnackbar}
         snackbarMessage={snackbarMessage}
+        error={snackbarError}
       />
     </>
   );

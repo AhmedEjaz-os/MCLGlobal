@@ -196,14 +196,14 @@ function RegisterPage() {
     event.preventDefault();
     if (accountType === "individual") {
       const payload = {
-        account_type: accountType,
-        first_name: firstName,
-        last_name: lastName,
+        accountType: "individual agent",
+        firstName: firstName,
+        lastName: lastName,
         email,
         confirm_email: confirmEmail,
         phone: phoneCountry?.phoneCode + phone,
         whatsapp: whatsAppPhone?.phoneCode + whatsapp,
-        accept_terms: acceptTerms,
+        platform: "web",
       };
       resetForm();
       console.log("Individual Registered Successfull", payload);
@@ -215,19 +215,19 @@ function RegisterPage() {
               if (city && city.length > 0) {
                 if (postCode && postCode > 0) {
                   const payload = {
-                    account_type: accountType,
-                    owner_name: ownersName,
+                    account_type: "individual agent",
+                    ownerName: ownersName,
                     owner_email: ownersEmail,
-                    owner_phone: ownersPhone,
-                    company_name: companyName,
+                    ownerPhone: ownersPhone,
+                    companyName: companyName,
                     website: website,
-                    address_one: addressOne,
-                    address_two: addressTwo,
+                    address1: addressOne,
+                    address2: addressTwo,
                     city: city,
-                    post_code: postCode,
+                    postcode: postCode,
                     country: country,
                     region: region,
-                    accept_terms: acceptTerms,
+                    platform: "web",
                   };
                   resetForm();
                   console.log("Organization Registered Successfull", payload);
@@ -280,12 +280,21 @@ function RegisterPage() {
     <>
       <BackgroundTemplate>
         {/* Login Form */}
-        <div
+        <Box
           className="login-container"
-          style={{
+          sx={{
             minWidth: {
+              sx: "80%",
               xl: "532px",
-              xxl: "630px",
+              xxl: "532px",
+            },
+            maxWidth: {
+              xs: "80%",
+              md: "unset",
+            },
+            maxHeight: {
+              xs: "60%",
+              md: "unset",
             },
             display: "flex",
             justifyContent: "center",
@@ -293,11 +302,19 @@ function RegisterPage() {
             flexDirection: "column",
             borderRadius: "30px",
             width: "fit-content",
-            backgroundImage: "url(/images/layers.png)",
+            backgroundImage: {
+              md: "url(/images/layers.png)",
+            },
+            backgroundColor: {
+              xs: "white",
+              md: "unset",
+            },
             backgroundRepeat: "no-repeat",
             backgroundSize: "contain",
             backgroundPosition: "left",
-            minHeight: "100%",
+            minHeight: {
+              md: "100%",
+            },
           }}
         >
           <Box
@@ -307,6 +324,7 @@ function RegisterPage() {
               flexDirection: "column",
               justifyContent: "flex-start",
               padding: {
+                xs: "0px 28px 0px",
                 md: "0px 28px 0px",
                 xl: "0px 24px 0px",
               },
@@ -315,12 +333,15 @@ function RegisterPage() {
                 xl: "80px",
               },
               maxHeight: {
+                xs: "60%",
                 md: 525,
               },
               maxWidth: {
-                md: 514,
+                md: 428,
+                xl: 428,
               },
               overflow: {
+                xs: "auto",
                 md: "auto",
               },
             }}
@@ -524,6 +545,12 @@ function RegisterPage() {
                       sx: 12,
                       md: 12,
                     }}
+                    sx={{
+                      width: {
+                        xs: "100%",
+                        md: "unset",
+                      },
+                    }}
                   >
                     <CustomFormFields
                       label="Phone number"
@@ -533,16 +560,29 @@ function RegisterPage() {
                       errorMessage={errorMessages.whatsapp}
                       type="number"
                       startAdornment={
-                        <InputAdornment position="start" sx={{ gap: 1 }}>
+                        <InputAdornment
+                          position="start"
+                          sx={{
+                            gap: "2px",
+                            justifyContent: "flex-start",
+                            width: "auto",
+                            padding: "0px",
+                            margin: "0px",
+                          }}
+                        >
                           <Autocomplete
                             options={countries}
                             getOptionLabel={(option) => option.countryCode}
                             value={phoneCountry}
+                            clearIcon={null}
                             onChange={(e, newValue) =>
                               setPhoneCountry(newValue)
                             }
                             sx={{
-                              width: 100,
+                              width: {
+                                xs: "36%",
+                                md: "100%",
+                              },
                               "& .MuiOutlinedInput-root": {
                                 padding: 0,
                                 border: "none",
@@ -554,6 +594,9 @@ function RegisterPage() {
                                 {...params}
                                 placeholder="+Code"
                                 variant="outlined"
+                                sx={{
+                                  fontSize: "10px",
+                                }}
                                 InputProps={{
                                   ...params.InputProps,
                                   disableUnderline: true,
@@ -575,11 +618,20 @@ function RegisterPage() {
                               </Box>
                             )}
                           />
-                          <Flag
-                            code={phoneCountry?.countryCode}
-                            style={{ width: 24, height: 16 }}
-                          />
-                          {phoneCountry?.phoneCode}
+                          <Box
+                            sx={{
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                              gap: "4px",
+                            }}
+                          >
+                            <Flag
+                              code={phoneCountry?.countryCode}
+                              style={{ width: 24, height: 16 }}
+                            />
+                            {phoneCountry?.phoneCode}
+                          </Box>
                         </InputAdornment>
                       }
                     />
@@ -604,17 +656,34 @@ function RegisterPage() {
                       type="number"
                       disabled={!whatsAppPhone}
                       title={"Select the country first"}
+                      sx={{
+                        display: "block",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        gap: "4px",
+                      }}
                       startAdornment={
-                        <InputAdornment position="start" sx={{ gap: 1 }}>
+                        <InputAdornment
+                          position="start"
+                          sx={{
+                            gap: "2px",
+                            justifyContent: "flex-start",
+                            width: "auto",
+                          }}
+                        >
                           <Autocomplete
                             options={countries}
                             getOptionLabel={(option) => option.countryCode}
                             value={whatsAppPhone}
+                            clearIcon={null}
                             onChange={(e, newValue) =>
                               setWhatsAppPhone(newValue)
                             }
                             sx={{
-                              width: 100,
+                              width: {
+                                xs: "36%",
+                                md: "100%",
+                              },
                               "& .MuiOutlinedInput-root": {
                                 padding: 0,
                                 border: "none",
@@ -647,11 +716,20 @@ function RegisterPage() {
                               </Box>
                             )}
                           />
-                          <Flag
-                            code={whatsAppPhone?.countryCode}
-                            style={{ width: 24, height: 16 }}
-                          />
-                          {whatsAppPhone?.phoneCode}
+                          <Box
+                            sx={{
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                              gap: "4px",
+                            }}
+                          >
+                            <Flag
+                              code={whatsAppPhone?.countryCode}
+                              style={{ width: 24, height: 16 }}
+                            />
+                            {whatsAppPhone?.phoneCode}
+                          </Box>
                         </InputAdornment>
                       }
                     />
@@ -882,11 +960,20 @@ function RegisterPage() {
               variant="contained"
               type="submit"
               sx={{
-                py: 1.5,
-                mb: 3,
+                padding: {
+                  xs: "6px 8px",
+                  md: "6px 16px",
+                },
+                mb: {
+                  xs: 1,
+                  md: 3,
+                },
                 borderRadius: "12px",
                 fontWeight: 700,
-                fontSize: "1rem",
+                fontSize: {
+                  xs: "12px",
+                  md: "1rem",
+                },
                 backgroundColor: "#2563eb",
                 textTransform: "capitalize",
                 "&:hover": {
@@ -903,22 +990,33 @@ function RegisterPage() {
             <FormControlLabel
               control={
                 <Checkbox
+                  size="small"
                   checked={acceptTerms}
                   onChange={(e) => setAcceptTerms(e.target.checked)}
                 />
               }
               sx={{
+                fontSize: {
+                  xs: "10px",
+                  md: "16px",
+                },
                 color: "#666",
                 textAlign: "start",
                 alignItems: "flex-start",
                 ".MuiCheckbox-root": {
-                  paddingTop: "4px",
+                  paddingTop: "1px",
+                },
+                ".MuiTypography-root": {
+                  fontSize: {
+                    xs: "10px",
+                    md: "16px",
+                  },
                 },
               }}
               label="By clicking Create account, I agree that I have read and accepted the Terms of Use and Privacy Policy."
             />
           </Box>
-        </div>
+        </Box>
       </BackgroundTemplate>
       <CustomSnackBar
         openSnackbar={openSnackbar}
