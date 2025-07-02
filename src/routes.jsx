@@ -1,72 +1,75 @@
-import dashboardIcon from "/images/sidebarAssets/dashboard.svg";
-import applicationManagementIcon from "/images/sidebarAssets/applicationManagement.svg";
-import commissionModule from "/images/sidebarAssets/commissionModule.svg";
-import noticesSetup from "/images/sidebarAssets/noticesSetup.svg";
-import ticketManagement from "/images/sidebarAssets/ticketManagement.svg";
-import historyAndRecords from "/images/sidebarAssets/historyAndRecords.svg";
-import searchCourses from "/images/sidebarAssets/searchCourses.svg";
-import emailSystem from "/images/sidebarAssets/emailSystem.svg";
-import stats from "/images/sidebarAssets/stats.svg";
-import studentManagement from "/images/sidebarAssets/studentManagement.svg";
+import icons from "./svgIcons/sidebarIcons";
 
+const {
+  dashboardIcon,
+  applicationManagementIcon,
+  commissionModule,
+  noticesSetup,
+  ticketManagement,
+  historyAndRecords,
+  searchCourses,
+  emailSystem,
+  stats,
+  studentManagement,
+} = icons();
 const routes = () => {
   return [
     {
-      path: "/dashboard",
+      path: "/admin/dashboard",
       component: <></>,
       name: "Dashboard",
       icon: dashboardIcon,
     },
     {
-      path: "/application-management",
+      path: "/admin/application-management",
       component: <></>,
       name: "Application Management",
       icon: applicationManagementIcon,
     },
     {
-      path: "/commission-module",
+      path: "/admin/commission-module",
       component: <></>,
       name: "Commission Module",
       icon: commissionModule,
     },
     {
-      path: "/notices-setup",
+      path: "/admin/notices-setup",
       component: <></>,
       name: "Notices Setup",
       icon: noticesSetup,
     },
     {
-      path: "/ticket-management",
+      path: "/admin/ticket-management",
       component: <></>,
       name: "Ticket Management",
       icon: ticketManagement,
     },
     {
-      path: "/history-and-records",
+      path: "/admin/history-and-records",
       component: <></>,
       name: "History And Records",
       icon: historyAndRecords,
     },
     {
-      path: "/search-courses",
+      path: "/admin/search-courses",
       component: <></>,
       name: "Search Courses",
       icon: searchCourses,
     },
     {
-      path: "/email-system",
+      path: "/admin/email-system",
       component: <></>,
       name: "In-App Email System",
       icon: emailSystem,
     },
     {
-      path: "/stats-dashboard",
+      path: "/admin/stats-dashboard",
       component: <></>,
       name: "Stats Dashboard",
       icon: stats,
     },
     {
-      path: "/student-management",
+      path: "/admin/student-management",
       component: <></>,
       name: "Student Management",
       icon: studentManagement,

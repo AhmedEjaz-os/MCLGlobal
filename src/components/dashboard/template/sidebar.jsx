@@ -1,5 +1,6 @@
 import * as React from "react";
 import { styled, useTheme } from "@mui/material/styles";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar from "@mui/material/AppBar";
@@ -7,21 +8,33 @@ import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
 import CssBaseline from "@mui/material/CssBaseline";
 import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
 import routes from "../../../routes.jsx";
-import { useLocation, useNavigate } from "react-router-dom";
+import ConstantString from "../../../ConstantString.js";
+import dashboardIcons from "../../../svgIcons/dashboardIcons.jsx";
+import { Avatar, ListItemAvatar } from "@mui/material";
 
 const drawerWidth = 304;
+
+const approvedIcon = (
+  <svg
+    width="25"
+    height="25"
+    viewBox="0 0 25 25"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M23.9583 12.5001L21.4167 9.60425L21.7708 5.77091L18.0104 4.91675L16.0417 1.60425L12.5 3.12508L8.95832 1.60425L6.98957 4.91675L3.22916 5.7605L3.58332 9.59383L1.04166 12.5001L3.58332 15.3959L3.22916 19.2397L6.98957 20.0938L8.95832 23.4063L12.5 21.8751L16.0417 23.3959L18.0104 20.0834L21.7708 19.2292L21.4167 15.3959L23.9583 12.5001ZM10.4167 17.7084L6.24999 13.5417L7.71874 12.073L10.4167 14.7605L17.2812 7.89591L18.75 9.37508L10.4167 17.7084Z"
+      fill="#19B32B"
+    />
+  </svg>
+);
 
 const openedMixin = (theme) => ({
   width: drawerWidth,
@@ -102,6 +115,14 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 function Sidebar() {
+  const {
+    PLATFORM_TYPE,
+    PLATFORM_TYPE_DESCRIPTION,
+    PLATFORM_ACCOUNT_STATUS,
+    PLATFORM_ACCOUNT_STATUS_APPROVED,
+  } = ConstantString;
+
+  console.log(dashboardIcons);
   const navigate = useNavigate();
   const location = useLocation();
   const theme = useTheme();
@@ -205,7 +226,6 @@ function Sidebar() {
                 <ListItemButton
                   sx={[
                     {
-                      minHeight: 48,
                       backgroundColor: isActive(path)
                         ? "#C0DCFF"
                         : "transparent",
@@ -218,9 +238,8 @@ function Sidebar() {
                         ".MuiTypography-root": {
                           color: "#033C82",
                         },
-                        ".sidebar-icon": {
-                          filter:
-                            "invert(14%) sepia(60%) saturate(3597%) hue-rotate(204deg) brightness(91%) contrast(98%)",
+                        ".sidebar-icon > svg": {
+                          color: "#033C82",
                         },
                       },
                     },
@@ -233,6 +252,9 @@ function Sidebar() {
                         },
                   ]}
                   onClick={() => navigate(path)}
+                  style={{
+                    color: isActive(path) ? "#033C82" : "white", // Set color for icon here
+                  }}
                 >
                   <ListItemIcon
                     sx={[
@@ -242,28 +264,21 @@ function Sidebar() {
                       },
                       open
                         ? {
-                            mr: 3,
+                            mr: 2,
                           }
                         : {
                             mr: "auto",
                           },
                     ]}
                   >
-                    <img
-                      src={icon}
-                      alt={text}
+                    <span
                       className="sidebar-icon"
                       style={{
-                        width: 24,
-                        objectFit: "contain",
-                        filter: isActive(path)
-                          ? "invert(14%) sepia(60%) saturate(3597%) hue-rotate(204deg) brightness(91%) contrast(98%)"
-                          : "invert(0%) sepia(7%) saturate(7489%) hue-rotate(208deg) brightness(110%) contrast(101%)",
-                        "&:hover": {
-                          color: "#033C82",
-                        },
+                        color: isActive(path) ? "#033C82" : "white",
                       }}
-                    />
+                    >
+                      {icon}
+                    </span>
                   </ListItemIcon>
                   <ListItemText
                     primary={text}
@@ -271,7 +286,6 @@ function Sidebar() {
                       open
                         ? {
                             opacity: 1,
-                            color: "white",
                             fontSize: "16px",
                             fontWeight: 500,
                             lineHeight: "100%",
@@ -280,7 +294,6 @@ function Sidebar() {
                           }
                         : {
                             opacity: 0,
-                            color: "white",
                             fontSize: "16px",
                             fontWeight: 500,
                             lineHeight: "100%",
@@ -303,36 +316,144 @@ function Sidebar() {
           marginTop: open ? "24px" : "56px",
         }}
       >
-        <DrawerHeader />
-        <Typography sx={{ marginBottom: 2 }}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus
-          dolor purus non enim praesent elementum facilisis leo vel. Risus at
-          ultrices mi tempus imperdiet. Semper risus in hendrerit gravida rutrum
-          quisque non tellus. Convallis convallis tellus id interdum velit
-          laoreet id donec ultrices. Odio morbi quis commodo odio aenean sed
-          adipiscing. Amet nisl suscipit adipiscing bibendum est ultricies
-          integer quis. Cursus euismod quis viverra nibh cras. Metus vulputate
-          eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo
-          quis imperdiet massa tincidunt. Cras tincidunt lobortis feugiat
-          vivamus at augue. At augue eget arcu dictum varius duis at consectetur
-          lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa sapien
-          faucibus et molestie ac.
-        </Typography>
-        <Typography sx={{ marginBottom: 2 }}>
-          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est
-          ullamcorper eget nulla facilisi etiam dignissim diam. Pulvinar
-          elementum integer enim neque volutpat ac tincidunt. Ornare suspendisse
-          sed nisi lacus sed viverra tellus. Purus sit amet volutpat consequat
-          mauris. Elementum eu facilisis sed odio morbi. Euismod lacinia at quis
-          risus sed vulputate odio. Morbi tincidunt ornare massa eget egestas
-          purus viverra accumsan in. In hendrerit gravida rutrum quisque non
-          tellus orci ac. Pellentesque nec nam aliquam sem et tortor. Habitant
-          morbi tristique senectus et. Adipiscing elit duis tristique
-          sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
-          eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-          posuere sollicitudin aliquam ultrices sagittis orci a.
-        </Typography>
+        <DrawerHeader
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "flex-start",
+            width: "100%",
+          }}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              width: "100%",
+              marginBottom: "22px",
+            }}
+          >
+            <Box>
+              <Typography
+                sx={{
+                  fontSize: 32,
+                  fontWeight: 500,
+                  lineHeight: "32px",
+                  letterSpacing: "0.5%",
+                  marginBottom: "8px",
+                }}
+                variant="h1"
+              >
+                {PLATFORM_TYPE}
+              </Typography>
+              <Typography variant="p" sx={{}}>
+                {PLATFORM_TYPE_DESCRIPTION}
+              </Typography>
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <Box
+                sx={{
+                  display: "block",
+                  padding: "10px",
+                  backgroundColor: "#DFEDFF",
+                  margin: 0,
+                  padding: 0,
+                  border: 0,
+                  borderRadius: "50%",
+                  objectFit: "contain",
+                  width: "46px",
+                  height: "40px",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  paddingLeft: "2px",
+                  marginRight: "18px",
+                }}
+              >
+                {dashboardIcons.SettingsIcon}
+              </Box>
+              <ListItem
+                sx={{
+                  ".MuiButtonBase-root": {
+                    paddingLeft: "0px",
+                  },
+                }}
+                disablePadding
+              >
+                <ListItemButton
+                  sx={{
+                    ".MuiListItemText-root": {
+                      display: "flex",
+                      justifyContent: "flex-end",
+                      alignItems: "flex-end",
+                      flexDirection: "column",
+                    },
+                  }}
+                >
+                  <ListItemText
+                    sx={{
+                      ".MuiTypography-body1": {
+                        textTransform: "uppercase",
+                        fontSize: "14px",
+                        fontWeight: "600",
+                      },
+                      ".MuiTypography-body2": {
+                        fontSize: "14px",
+                        fontWeight: "400",
+                        lineHeight: "100%",
+                        color: "#000",
+                      },
+                    }}
+                    secondary={"Admin"}
+                    primary={`User Placeholder`}
+                  />
+                  <ListItemAvatar sx={{}}>
+                    <Avatar
+                      sx={{
+                        bgcolor: "#033C82", // Background color
+                        color: "white", // Text color for initials
+                        width: 40, // Adjust size as needed
+                        height: 40, // Adjust size as needed
+                        fontSize: "1.2rem", // Font size for initials
+                        margin: "0px 0px 0px 10px",
+                      }}
+                    >
+                      AE
+                    </Avatar>
+                  </ListItemAvatar>
+                </ListItemButton>
+              </ListItem>
+            </Box>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              padding: "10px 16px",
+              borderRadius: 30,
+              backgroundColor: "#CAFFD0",
+              fontSize: 16,
+              fontWeight: 500,
+              lineHeight: "100%",
+            }}
+          >
+            <span
+              style={{
+                marginTop: 2,
+                marginRight: 3,
+              }}
+            >
+              {approvedIcon}
+            </span>{" "}
+            {PLATFORM_ACCOUNT_STATUS}: {PLATFORM_ACCOUNT_STATUS_APPROVED}
+          </Box>
+        </DrawerHeader>
+        <Outlet />
       </Box>
     </Box>
   );
