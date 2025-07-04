@@ -232,6 +232,8 @@ function Sidebar() {
                       borderRadius: open ? "32px" : "50%",
                       minWidth: open ? "unset" : "36px",
                       minHeight: open ? "48px" : "36px",
+                      padding: !open ? "0px" : "8px 16px",
+
                       "&:hover": {
                         backgroundColor: "#C0DCFF",
                         borderRadius: "32px",
@@ -267,7 +269,7 @@ function Sidebar() {
                             mr: 2,
                           }
                         : {
-                            mr: "auto",
+                            mr: "0px",
                           },
                     ]}
                   >
@@ -275,6 +277,8 @@ function Sidebar() {
                       className="sidebar-icon"
                       style={{
                         color: isActive(path) ? "#033C82" : "white",
+                        width: !open ? "25px" : "auto",
+                        height: !open ? "25px" : "auto",
                       }}
                     >
                       {icon}
@@ -298,6 +302,7 @@ function Sidebar() {
                             fontWeight: 500,
                             lineHeight: "100%",
                             color: isActive(path) ? "#033C82" : "#fff",
+                            display: "none",
                           },
                     ]}
                   />

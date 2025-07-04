@@ -12,6 +12,7 @@ import SearchCourses from "./components/dashboard/SearchCourses";
 import StatsDashboard from "./components/dashboard/StatsDashboard";
 import StudentManagement from "./components/dashboard/StudentManagement";
 import TicketManagement from "./components/dashboard/TicketManagement";
+import AgreeementScreen from "./components/auth/AgreeementScreen";
 import "./App.css";
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
           <Route path="/" element={<Navigate to="/login" replace />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/agreement" element={<AgreeementScreen />} />
           <Route path="/admin" element={<DashboardTemplate />}>
             <Route index path="/admin/dashboard" element={<Dashboard />} />
             <Route

@@ -290,11 +290,11 @@ function RegisterPage() {
             },
             maxWidth: {
               xs: "80%",
-              md: "unset",
+              md: "70%",
             },
             maxHeight: {
-              xs: "60%",
-              md: "unset",
+              xs: "90%",
+              md: "100%",
             },
             display: "flex",
             justifyContent: "center",
@@ -312,9 +312,7 @@ function RegisterPage() {
             backgroundRepeat: "no-repeat",
             backgroundSize: "contain",
             backgroundPosition: "left",
-            minHeight: {
-              md: "100%",
-            },
+            minHeight: {},
           }}
         >
           <Box
@@ -333,11 +331,11 @@ function RegisterPage() {
                 xl: "80px",
               },
               maxHeight: {
-                xs: "60%",
+                xs: "86%",
                 md: 525,
               },
               maxWidth: {
-                md: 428,
+                md: "59%",
                 xl: 428,
               },
               overflow: {
