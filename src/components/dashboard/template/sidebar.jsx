@@ -122,7 +122,6 @@ function Sidebar() {
     PLATFORM_ACCOUNT_STATUS_APPROVED,
   } = ConstantString;
 
-  console.log(dashboardIcons);
   const navigate = useNavigate();
   const location = useLocation();
   const theme = useTheme();
@@ -327,6 +326,7 @@ function Sidebar() {
             flexDirection: "column",
             alignItems: "flex-start",
             width: "100%",
+            marginBottom: "25px",
           }}
         >
           <Box
@@ -363,8 +363,6 @@ function Sidebar() {
             >
               <Box
                 sx={{
-                  display: "block",
-                  padding: "10px",
                   backgroundColor: "#DFEDFF",
                   margin: 0,
                   padding: 0,

@@ -21,6 +21,14 @@ const ConstantString = {
   AGREEMENT_SCREEN_DOWNLOAD_CONTRACT: "Download Contract",
   AGREEMENT_SCREEN_DOWNLOAD_CONTRACT_PATH: "/contract/Contract.docx",
   AGREEMENT_SCREEN_SUBMIT_AGREEMENT: "Submit Agreement",
+  DASHBOARD_WELCOME_BOARD_TITLE: "Welcome back,",
+  DASHBOARD_WELCOME_BOARD_DESCRIPTION:
+    "Here's what's happening with your agency today",
+  DASHBOARD_WELCOME_BOARD_APPLICATION_TITLE: "Total Applications",
+  DASHBOARD_STATS_CARD_TITLE_1: "Active Applications",
+  DASHBOARD_STATS_CARD_TITLE_2: "Pending Review",
+  DASHBOARD_STATS_CARD_TITLE_3: "Approved",
+  DASHBOARD_STATS_CARD_TITLE_4: "Rejected",
 };
 
 export default ConstantString;
