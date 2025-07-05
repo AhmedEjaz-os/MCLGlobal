@@ -318,6 +318,7 @@ function Sidebar() {
           p: 3,
           borderRadius: "30px",
           marginTop: open ? "24px" : "56px",
+          width: open ? `calc(100% - ${drawerWidth}px)` : `calc(100% - 64px)`,
         }}
       >
         <DrawerHeader

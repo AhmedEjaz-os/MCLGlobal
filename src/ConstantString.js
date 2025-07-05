@@ -29,6 +29,15 @@ const ConstantString = {
   DASHBOARD_STATS_CARD_TITLE_2: "Pending Review",
   DASHBOARD_STATS_CARD_TITLE_3: "Approved",
   DASHBOARD_STATS_CARD_TITLE_4: "Rejected",
+  DASHBOARD_ACCOUNT_SETTINGS_TITLE: "Account settings",
+  DASHBOARD_ACCOUNT_SETTINGS_SUBTITLE:
+    "Manage your account preferences and security",
+  DASHBOARD_ACCOUNT_SETTINGS_BUTTON_TITLE_1: "Change Password",
+  DASHBOARD_ACCOUNT_SETTINGS_BUTTON_TITLE_2: "Security Settings",
+  DASHBOARD_ACCOUNT_SETTINGS_BUTTON_TITLE_3: "Terms and Condition",
+  DASHBOARD_ACCOUNT_SETTINGS_BUTTON_TITLE_4: "Privacy Policy",
+  DASHBOARD_ACCOUNT_SETTINGS_BUTTON_TITLE_5: "Terminate Account",
+  DASHBOARD_ACCOUNT_SETTINGS_BUTTON_TITLE_6: "Log Out",
 };
 
 export default ConstantString;

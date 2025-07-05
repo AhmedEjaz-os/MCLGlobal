@@ -82,7 +82,7 @@ function CourseApplication() {
               "&:hover": {
                 borderColor: "#2563eb",
                 ".radio-label": {
-                  color: "#033C82",
+                  color: filter === "active" ? "white" : "#033C82",
                 },
               },
             }}
@@ -122,7 +122,7 @@ function CourseApplication() {
               "&:hover": {
                 borderColor: "#2563eb",
                 ".radio-label": {
-                  color: "#033C82",
+                  color: filter === "rejected" ? "white" : "#033C82",
                 },
               },
             }}
@@ -161,7 +161,7 @@ function CourseApplication() {
               "&:hover": {
                 borderColor: "#2563eb",
                 ".radio-label": {
-                  color: "#033C82",
+                  color: filter === "new" ? "white" : "#033C82",
                 },
               },
             }}
