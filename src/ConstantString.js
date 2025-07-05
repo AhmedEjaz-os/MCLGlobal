@@ -1,4 +1,14 @@
 const ConstantString = {
+  AUTH_TEMPLATE_BACKGROUND_TITLE: "Welcome back to MCL Global",
+  AUTH_TEMPLATE_BACKGROUND_DESCRIPTION:
+    "Empowering agents to manage leads, access insights, and stay connected. Sign in to continue delivering excellence.",
+  AUTH_SIGN_IN_TITLE: "Agent Sign In",
+  AUTH_SIGN_IN_SUBTITLE: "Access your MCL Global agent portal",
+  AUTH_SIGN_IN_FORGOT_PASSWORD: "Forgot Password?",
+  AUTH_SIGN_IN_BUTTON: "Sign In",
+  AUTH_SIGN_IN_TAGLINE: "New to MCL Global? Contact admin for account creation",
+  AUTH_SIGN_IN_EMAIL_FIELD_LABLE: "Email",
+  AUTH_SIGN_IN_PASSWPORD_FIELD_LABLE: "Password",
   PLATFORM_TYPE: "Agency Account",
   PLATFORM_TYPE_DESCRIPTION: "Account Management",
   PLATFORM_ACCOUNT_STATUS: "Account Status",
@@ -38,6 +48,12 @@ const ConstantString = {
   DASHBOARD_ACCOUNT_SETTINGS_BUTTON_TITLE_4: "Privacy Policy",
   DASHBOARD_ACCOUNT_SETTINGS_BUTTON_TITLE_5: "Terminate Account",
   DASHBOARD_ACCOUNT_SETTINGS_BUTTON_TITLE_6: "Log Out",
+  DASHBOARD_ACCOUNT_DETAILS_TITLE: "Account Details",
+  DASHBOARD_ACCOUNT_DETAILS_SUBTITLE: "View your account detaisl",
+  DASHBOARD_ACCOUNT_DETAILS_TITLE_1: "Name:",
+  DASHBOARD_ACCOUNT_DETAILS_TITLE_2: "Username:",
+  DASHBOARD_ACCOUNT_DETAILS_TITLE_3: "Email:",
+  DASHBOARD_ACCOUNT_DETAILS_TITLE_4: "Password:",
 };
 
 export default ConstantString;

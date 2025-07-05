@@ -22,6 +22,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import countries from "../helpers/JSON/countries.json";
 import Flag from "react-world-flags";
 import axios from "axios";
+import "../../App.css";
 
 function RegisterPage() {
   const [accountType, setAccountType] = React.useState("individual");
@@ -71,7 +72,7 @@ function RegisterPage() {
       .catch((error) => {
         console.error("Failed to get country code", error);
       });
-  }, []);
+  }, [whatsAppPhone.countryCode]);
 
   const [errors, setErrors] = React.useState({
     firstName: false,
@@ -125,7 +126,7 @@ function RegisterPage() {
   const [snackbarMessage, setSnackbarMessage] = React.useState(false);
 
   const resetForm = () => {
-    setAccountType("");
+    setAccountType("individual");
     setFirstName("");
     setLastName("");
     setEmail("");
@@ -208,100 +209,88 @@ function RegisterPage() {
       resetForm();
       console.log("Individual Registered Successfull", payload);
     } else {
-      if (ownersName && ownersName.length > 0) {
-        if (companyName && companyName.length > 0) {
-          if (urlRegex.test(website)) {
-            if (addressOne && addressOne.length > 0) {
-              if (city && city.length > 0) {
-                if (postCode && postCode > 0) {
-                  const payload = {
-                    account_type: "individual agent",
-                    ownerName: ownersName,
-                    owner_email: ownersEmail,
-                    ownerPhone: ownersPhone,
-                    companyName: companyName,
-                    website: website,
-                    address1: addressOne,
-                    address2: addressTwo,
-                    city: city,
-                    postcode: postCode,
-                    country: country,
-                    region: region,
-                    platform: "web",
-                  };
-                  resetForm();
-                  console.log("Organization Registered Successfull", payload);
+      if (accountType === "business") {
+        if (ownersName && ownersName.length > 0) {
+          if (companyName && companyName.length > 0) {
+            if (urlRegex.test(website)) {
+              if (addressOne && addressOne.length > 0) {
+                if (city && city.length > 0) {
+                  if (postCode && postCode > 0) {
+                    const payload = {
+                      account_type: "individual agent",
+                      ownerName: ownersName,
+                      owner_email: ownersEmail,
+                      ownerPhone: ownersPhone,
+                      companyName: companyName,
+                      website: website,
+                      address1: addressOne,
+                      address2: addressTwo,
+                      city: city,
+                      postcode: postCode,
+                      country: country,
+                      region: region,
+                      platform: "web",
+                    };
+                    resetForm();
+                    console.log("Organization Registered Successfull", payload);
+                  } else {
+                    setErrorsOrg({ ...errorsOrg, postCode: true });
+                    setErrorMessageOrg({
+                      ...errorsOrg,
+                      postCode: "Post Code field is required",
+                    });
+                  }
                 } else {
-                  setErrorsOrg({ ...errorsOrg, postCode: true });
+                  setErrorsOrg({ ...errorsOrg, city: true });
                   setErrorMessageOrg({
                     ...errorsOrg,
-                    postCode: "Post Code field is required",
+                    city: "city field is required",
                   });
                 }
               } else {
-                setErrorsOrg({ ...errorsOrg, city: true });
+                setErrorsOrg({ ...errorsOrg, addressOne: true });
                 setErrorMessageOrg({
                   ...errorsOrg,
-                  city: "city field is required",
+                  addressOne: "Address 1 field is required",
                 });
               }
             } else {
-              setErrorsOrg({ ...errorsOrg, addressOne: true });
+              setErrorsOrg({ ...errorsOrg, website: true });
               setErrorMessageOrg({
                 ...errorsOrg,
-                addressOne: "Address 1 field is required",
+                website: "Not a valid URL",
               });
             }
           } else {
-            setErrorsOrg({ ...errorsOrg, website: true });
+            setErrorsOrg({ ...errorsOrg, companyName: true });
             setErrorMessageOrg({
               ...errorsOrg,
-              website: "Not a valid URL",
+              companyName: "Company Name field is required",
             });
           }
         } else {
-          setErrorsOrg({ ...errorsOrg, companyName: true });
+          setErrorsOrg({ ...errorsOrg, ownersName: true });
           setErrorMessageOrg({
             ...errorsOrg,
-            companyName: "Company Name field is required",
+            ownersName: "Owner Name field is required",
           });
         }
-      } else {
-        setErrorsOrg({ ...errorsOrg, ownersName: true });
-        setErrorMessageOrg({
-          ...errorsOrg,
-          ownersName: "Owner Name field is required",
-        });
       }
     }
   };
 
   return (
     <>
-      <BackgroundTemplate>
+      <BackgroundTemplate display="flex">
         {/* Login Form */}
         <Box
           className="login-container"
           sx={{
-            minWidth: {
-              sx: "80%",
-              xl: "532px",
-              xxl: "532px",
-            },
-            maxWidth: {
-              xs: "80%",
-              md: "70%",
-            },
-            maxHeight: {
-              xs: "90%",
-              md: "100%",
-            },
             display: "flex",
             justifyContent: "center",
             alignItems: "start",
             flexDirection: "column",
             borderRadius: "30px",
-            width: "fit-content",
             backgroundImage: {
               md: "url(/images/layers.png)",
             },
@@ -312,38 +301,46 @@ function RegisterPage() {
             backgroundRepeat: "no-repeat",
             backgroundSize: "contain",
             backgroundPosition: "left",
-            minHeight: {},
           }}
         >
           <Box
             component="form"
             sx={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "flex-start",
+              display: {
+                md: "flex",
+              },
+              flexDirection: {
+                md: "row",
+              },
+              flexWrap: {
+                md: "wrap",
+              },
+              overflow: "auto",
               padding: {
-                xs: "0px 28px 0px",
-                md: "0px 28px 0px",
-                xl: "0px 24px 0px",
+                xs: "20px",
               },
-              marginLeft: {
-                md: "80px",
-                xl: "80px",
+              margin: {
+                xs: "30px 0px 30px",
+                md: "20px 44px 20px 80px",
+                xxl: "20px 10px 20px 80px",
               },
-              maxHeight: {
-                xs: "86%",
-                md: 525,
+              minWidth: {
+                md: "420px",
+                xxl: "unset",
               },
               maxWidth: {
-                md: "59%",
-                xl: 428,
+                xs: "80vw",
+                md: "420px",
+                xxl: "448px",
               },
-              overflow: {
-                xs: "auto",
-                md: "auto",
+              maxHeight: {
+                xs: "80vh",
+                md: "606px",
+                xxl: "664px",
               },
             }}
             onSubmit={handleSubmit}
+            className="register-form"
           >
             <InputLabel
               style={{
@@ -563,9 +560,9 @@ function RegisterPage() {
                           sx={{
                             gap: "2px",
                             justifyContent: "flex-start",
-                            width: "auto",
                             padding: "0px",
                             margin: "0px",
+                            width: "100px",
                           }}
                         >
                           <Autocomplete
@@ -578,8 +575,8 @@ function RegisterPage() {
                             }
                             sx={{
                               width: {
-                                xs: "36%",
-                                md: "100%",
+                                xs: "50%",
+                                md: "52%",
                               },
                               "& .MuiOutlinedInput-root": {
                                 padding: 0,
@@ -666,7 +663,7 @@ function RegisterPage() {
                           sx={{
                             gap: "2px",
                             justifyContent: "flex-start",
-                            width: "auto",
+                            width: "100px",
                           }}
                         >
                           <Autocomplete
@@ -679,8 +676,8 @@ function RegisterPage() {
                             }
                             sx={{
                               width: {
-                                xs: "36%",
-                                md: "100%",
+                                xs: "50%",
+                                md: "52%",
                               },
                               "& .MuiOutlinedInput-root": {
                                 padding: 0,
@@ -752,7 +749,7 @@ function RegisterPage() {
                       errors={errorsOrg.ownersName}
                       errorMessage={errorMessagesOrg.ownersName}
                       type="text"
-                      required={true}
+                      required={accountType === "business" ? true : false}
                     />
                   </Grid>
                   <Grid
@@ -810,7 +807,7 @@ function RegisterPage() {
                       errors={errorsOrg.companyName}
                       errorMessage={errorMessagesOrg.companyName}
                       type="text"
-                      required={true}
+                      required={accountType === "business" ? true : false}
                     />
                   </Grid>
                   <Grid
@@ -849,7 +846,7 @@ function RegisterPage() {
                       errors={errorsOrg.addressOne}
                       errorMessage={errorMessagesOrg.addressOne}
                       type="text"
-                      required={true}
+                      required={accountType === "business" ? true : false}
                     />
                   </Grid>
                   <Grid
@@ -888,7 +885,7 @@ function RegisterPage() {
                       errors={errorsOrg.city}
                       errorMessage={errorMessagesOrg.city}
                       type="text"
-                      required={true}
+                      required={accountType === "business" ? true : false}
                     />
                   </Grid>
                   <Grid
@@ -908,7 +905,7 @@ function RegisterPage() {
                       errors={errorsOrg.postCode}
                       errorMessage={errorMessagesOrg.postCode}
                       type="number"
-                      required={true}
+                      required={accountType === "business" ? true : false}
                     />
                   </Grid>
                   <Grid

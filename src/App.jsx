@@ -15,6 +15,7 @@ import TicketManagement from "./components/dashboard/TicketManagement";
 import AgreeementScreen from "./components/auth/AgreeementScreen";
 import "./App.css";
 import AccountSettings from "./components/dashboard/AccountSettings";
+import AccountDetails from "./components/dashboard/AccountDetails";
 
 function App() {
   return (
@@ -72,6 +73,11 @@ function App() {
               index
               path="/admin/account-settings"
               element={<AccountSettings />}
+            />
+            <Route
+              index
+              path="/admin/account-details"
+              element={<AccountDetails />}
             />
           </Route>
         </Routes>

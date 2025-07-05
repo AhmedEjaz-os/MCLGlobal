@@ -1,0 +1,5 @@
+.register-form {
+  .MuiPopper-root {
+    width: 300px !important;
+  }
+}

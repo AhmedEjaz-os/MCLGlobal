@@ -15,6 +15,7 @@ import {
 import CustomSnackBar from "../helpers/snackbar";
 import CustomFormFields from "../helpers/customFormFeilds";
 import { login } from "../helpers/API/auth.api";
+import ConstantString from "../../ConstantString";
 
 function LoginPage() {
   const [email, setEmail] = React.useState("");
@@ -193,7 +194,7 @@ function LoginPage() {
                 marginBottom: "6px",
               }}
             >
-              Agent Sign In
+              {ConstantString.AUTH_SIGN_IN_TITLE}
             </Typography>
             <Typography
               variant="body1"
@@ -206,7 +207,7 @@ function LoginPage() {
                 mt: 1,
               }}
             >
-              Access your MCL Global agent portal
+              {ConstantString.AUTH_SIGN_IN_SUBTITLE}
             </Typography>
           </Box>
           <Box
@@ -233,7 +234,7 @@ function LoginPage() {
             onSubmit={handleSubmit}
           >
             <CustomFormFields
-              label={"Email"}
+              label={ConstantString.AUTH_SIGN_IN_EMAIL_FIELD_LABLE}
               value={email}
               setValue={setEmail}
               errors={errors.email}
@@ -242,7 +243,7 @@ function LoginPage() {
               required={true}
             />
             <CustomFormFields
-              label={"Password"}
+              label={ConstantString.AUTH_SIGN_IN_PASSWPORD_FIELD_LABLE}
               value={password}
               setValue={setPassword}
               errors={errors.password}
@@ -295,7 +296,7 @@ function LoginPage() {
                   },
                 }}
               >
-                Forgot Password?
+                {ConstantString.AUTH_SIGN_IN_FORGOT_PASSWORD}
               </Button>
             </Box>
 
@@ -329,7 +330,7 @@ function LoginPage() {
                 transition: "all 0.2s ease",
               }}
             >
-              Sign In
+              {ConstantString.AUTH_SIGN_IN_BUTTON}
             </Button>
 
             {/* Sign Up Prompt */}
@@ -344,7 +345,7 @@ function LoginPage() {
                 textAlign: "center",
               }}
             >
-              New to MCL Global? Contact admin for account creation
+              {ConstantString.AUTH_SIGN_IN_TAGLINE}
             </Typography>
           </Box>
         </Box>

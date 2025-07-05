@@ -1,6 +1,7 @@
 import { Box, Divider, Typography } from "@mui/material";
+import ConstantString from "../../../ConstantString";
 
-function BackgroundTemplate({ ...rest }) {
+function BackgroundTemplate({ display = "block", ...rest }) {
   const { children } = rest;
   return (
     <Box
@@ -65,7 +66,7 @@ function BackgroundTemplate({ ...rest }) {
             mb: "16px",
           }}
         >
-          Welcome back to MCL Global
+          {ConstantString.AUTH_TEMPLATE_BACKGROUND_TITLE}
         </Typography>
         <Typography
           variant="body1"
@@ -79,8 +80,7 @@ function BackgroundTemplate({ ...rest }) {
             },
           }}
         >
-          Empowering agents to manage leads, access insights, and stay
-          connected. Sign in to continue delivering excellence.
+          {ConstantString.AUTH_TEMPLATE_BACKGROUND_DESCRIPTION}
         </Typography>
       </Box>
 
@@ -94,7 +94,7 @@ function BackgroundTemplate({ ...rest }) {
           height: "100%",
           display: {
             xs: "flex",
-            md: "block",
+            md: { display },
           },
           justifyContent: "center",
           alignItems: "center",
