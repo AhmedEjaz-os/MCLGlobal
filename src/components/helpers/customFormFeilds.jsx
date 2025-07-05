@@ -17,9 +17,12 @@ function CustomFormFields({
     <>
       <InputLabel
         required={required || false}
-        style={{
+        sx={{
           alignSelf: "flex-start",
-          fontSize: "14px",
+          fontSize: {
+            xs: "12px",
+            md: "14px",
+          },
           fontWeight: 500,
           marginBottom: "10px",
         }}
@@ -38,9 +41,15 @@ function CustomFormFields({
         onChange={(e) => setValue(e.target.value)}
         error={Boolean(errors)}
         sx={{
-          borderRadius: "12px",
+          borderRadius: {
+            xs: "6px",
+            md: "12px",
+          },
           backgroundColor: "#f8f9fa",
-          fontSize: "14px",
+          fontSize: {
+            xs: "12px",
+            md: "14px",
+          },
           "& input::-webkit-outer-spin-button": {
             WebkitAppearance: "none",
             margin: 0,
@@ -54,11 +63,28 @@ function CustomFormFields({
           "& input[type=number]": {
             MozAppearance: "textfield",
           },
+          ".MuiInputBase-input": {
+            xs: {
+              padding: "16.5px 14px",
+            },
+            md: {
+              padding: "16.5px 14px",
+            },
+          },
         }}
         endAdornment={endAdornment || null}
         startAdornment={startAdornment || null}
       />
-      <FormHelperText sx={{ mb: 3, color: "#d32f2f", alignSelf: "flex-start" }}>
+      <FormHelperText
+        sx={{
+          mb: {
+            xs: "10px",
+            md: 3,
+          },
+          color: "#d32f2f",
+          alignSelf: "flex-start",
+        }}
+      >
         {errors && errorMessage}
       </FormHelperText>
     </>

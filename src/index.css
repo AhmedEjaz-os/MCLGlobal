@@ -14,3 +14,43 @@ head {
   font-family: "Inter", sans-serif !important;
   font-style: normal;
 }
+
+::-webkit-scrollbar {
+  width: 6px; /* Thinner scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: #f0f0f0;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #1976d2, #8f94fb);
+  border-radius: 10px;
+  border: 2px solid #f0f0f0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #1976d2, #7277e4);
+}
+
+/* 3. Scroll Reveal Animation */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: reveal 0.6s ease-out forwards;
+}
+
+@keyframes reveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 4. Optional: Add this to a scrollable container */
+.scroll-container {
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 10px;
+}
